@@ -10,7 +10,7 @@ class HomeController() {
     fun index(): String {
         val crypter = Crypter("0123456789012345")
         val re = crypter.encrypt("hello")
-        val rd = crypter.decrypt(re)
+        val rd = crypter.decrypt<String>(re)
         return re + "<br/>" + rd
     }
 }

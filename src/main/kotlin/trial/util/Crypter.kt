@@ -1,12 +1,17 @@
 package trial.util
 
 import kotlin.random.Random
+import kotlinx.serialization.*
+import kotlinx.serialization.json.*
 import java.util.Base64
 import java.nio.charset.StandardCharsets
 import javax.crypto.Cipher
 import javax.crypto.spec.SecretKeySpec
 import javax.crypto.spec.IvParameterSpec
 
+/**
+ * 
+ */
 class Crypter {
     val key: ByteArray
     val algorithm: String
@@ -34,9 +39,10 @@ class Crypter {
         return iv + r
     }
 
-    fun encrypt(content: String) : String {
+    inline fun <reified T> encrypt(content: T) : String {
+        val c = Json.encodeToString(content)
+        val r = encrypt(c.toByteArray())
         val b64encoder = Base64.getEncoder()
-        val r = encrypt(content.toByteArray())
         return b64encoder.encodeToString(r)
     }
 
@@ -49,10 +55,11 @@ class Crypter {
         return cipher.doFinal(d)
     }
 
-    fun decrypt(ciphertext: String): String {
+    inline fun <reified T> decrypt(ciphertext: String): T {
         val b64decoder = Base64.getDecoder()
         val raw = b64decoder.decode(ciphertext)
         val r = decrypt(raw)
-        return String(r, Charsets.UTF_8)
+        val t = String(r, Charsets.UTF_8)
+        return Json.decodeFromString<T>(t)
     }
 }
