@@ -1,0 +1,4 @@
+plugins {
+    id 'trial.sbmdemo.kotlin-common-conventions'
+    id 'java-library'
+}
