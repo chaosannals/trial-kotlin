@@ -22,6 +22,8 @@ dependencies {
     // ktor
     implementation("io.ktor:ktor-client-core:$ktor_version")
     implementation("io.ktor:ktor-client-cio:$ktor_version")
+    // ktor make cert
+    implementation("io.ktor:ktor-network-tls-certificates:$ktor_version")
 
     // Use the Kotlin test library.
     testImplementation("org.jetbrains.kotlin:kotlin-test")

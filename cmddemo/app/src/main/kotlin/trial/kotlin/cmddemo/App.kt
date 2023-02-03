@@ -7,11 +7,13 @@ import kotlinx.coroutines.*
 import io.ktor.client.*
 import io.ktor.client.request.*
 import io.ktor.http.*
+import io.ktor.network.tls.certificates.*
+import java.io.*
 
 suspend fun main() = coroutineScope {
     launch { 
         delay(1000)
-        println("Kotlin Coroutines World!") 
+        println("in Coroutines World!") 
         try {
             val client = HttpClient()
             val r = client.post("http://127.0.0.1:12345/log?id=4444") {
@@ -24,5 +26,23 @@ suspend fun main() = coroutineScope {
             println(e)
         }
     }
-    println("Hello")
+    println("No in Coroutines.")
+
+    // 类似命令
+    // keytool -keystore demo.jks -alias sampleAlias -genkeypair -keyalg RSA -keysize 4096 -validity 3 -dname 'CN=localhost, OU=ktor, O=ktor, L=SHANTOU, ST=GUANGDONG, C=CN'
+    val path = "build/demo.jks"
+    val keyStoreFile = File(path)
+    val keyStore = buildKeyStore {
+        certificate("sampleAlias") {
+            password = "foobar"
+            // 官方示例，但是报没有 domains
+            domains = listOf(
+                "127.0.0.1",
+                "localhost",
+            )
+        }
+    }
+    keyStore.saveToFile(keyStoreFile, "123456")
+    println("make $path")
+
 }
