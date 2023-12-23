@@ -44,7 +44,7 @@ dependencies {
 }
 
 application {
-    mainClassName = "trial.AppKt"
+    mainClass.set("trial.AppKt")
 }
 
 // tasks.withType<KotlinCompile> {
