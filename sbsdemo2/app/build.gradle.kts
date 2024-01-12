@@ -25,7 +25,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web") {
         exclude(module="spring-boot-starter-tomcat")
     }
-    implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // 序列化库
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     implementation("com.google.guava:guava:31.1-jre")
