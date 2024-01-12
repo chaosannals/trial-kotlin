@@ -5,9 +5,14 @@ plugins {
     // kotlin 1.8.0 不支持 JVM20
     // kotlin 1.9.22 支持 JVM20
 
-    kotlin("jvm") version "1.9.22"
-    kotlin("plugin.spring") version "1.9.22"
-    kotlin("plugin.jpa") version "1.9.22"
+    val ktVersion = "1.9.22"
+
+    kotlin("jvm") version ktVersion
+    kotlin("plugin.spring") version ktVersion
+    kotlin("plugin.jpa") version ktVersion
+    kotlin("plugin.allopen") version ktVersion
+    kotlin("kapt") version ktVersion // 注解处理器
+
     id("org.springframework.boot") version "3.0.1"
     id("io.spring.dependency-management") version "1.1.0"
     application
@@ -19,7 +24,7 @@ repositories {
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
-    implementation("org.springframework.boot:spring-boot-starter-mustache")
+    implementation("org.springframework.boot:spring-boot-starter-mustache") // HTML 模板库
     // spring boot 用 undertow 换掉 tomcat
     implementation("org.springframework.boot:spring-boot-starter-undertow")
     implementation("org.springframework.boot:spring-boot-starter-web") {
@@ -28,7 +33,10 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // 序列化库
     implementation("org.jetbrains.kotlin:kotlin-reflect")
 
-    implementation("com.google.guava:guava:31.1-jre")
+    // @ConfigurationProperties 注解处理器
+    kapt("org.springframework.boot:spring-boot-configuration-processor")
+
+//    implementation("com.google.guava:guava:31.1-jre")
 
     runtimeOnly("com.h2database:h2")
     runtimeOnly("org.springframework.boot:spring-boot-devtools")
@@ -50,4 +58,10 @@ tasks.withType<KotlinCompile> {
   kotlinOptions {
     freeCompilerArgs += "-Xjsr305=strict"
   }
+}
+
+allOpen {
+    annotation("jakarta.persistence.Entity")
+    annotation("jakarta.persistence.Embeddable")
+    annotation("jakarta.persistence.MappedSuperclass")
 }

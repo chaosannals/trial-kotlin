@@ -5,7 +5,10 @@ import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.ComponentScans
 
-@ComponentScan("sbsdemo2.controller") // 指定控制器扫描名字空间
+@ComponentScan(
+    "sbsdemo2",
+    "sbsdemo2.controller"
+) // 指定 组件 扫描名字空间， 默认只有 sbsdemo2
 @SpringBootApplication
 class App {
     
