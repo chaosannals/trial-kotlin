@@ -1,6 +1,7 @@
 package sbsdemo2
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
+import org.springframework.boot.context.properties.EnableConfigurationProperties
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.ComponentScan
 import org.springframework.context.annotation.ComponentScans
@@ -10,6 +11,7 @@ import org.springframework.context.annotation.ComponentScans
     "sbsdemo2.controller"
 ) // 指定 组件 扫描名字空间， 默认只有 sbsdemo2
 @SpringBootApplication
+@EnableConfigurationProperties(BlogProperties::class)
 class App {
     
 }

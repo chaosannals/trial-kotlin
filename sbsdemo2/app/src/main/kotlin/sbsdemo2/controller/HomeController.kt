@@ -8,17 +8,20 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.server.ResponseStatusException
 import sbsdemo2.ArticleRepository
+import sbsdemo2.BlogProperties
 import sbsdemo2.entity.Article
 import sbsdemo2.entity.User
 import sbsdemo2.format
 
 @Controller
 class HomeController(
-    private val repository: ArticleRepository
+    private val repository: ArticleRepository,
+    private val properties: BlogProperties
 ) {
     @GetMapping("/")
     fun blog(model: Model): String {
-        model["title"] = "Blog"
+        model["title"] = properties.title
+        model["banner"] = properties.banner
         model["articles"] = repository.findAllByOrderByAddedAtDesc().map { it.render() }
         return "blog"
     }
