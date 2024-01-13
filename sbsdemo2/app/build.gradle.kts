@@ -23,6 +23,10 @@ repositories {
 }
 
 dependencies {
+    implementation(kotlin("stdlib")) // stdlib 官方示例引入，但是不引入好像也没问题
+    implementation(kotlin("reflect")) // 和下面应该是等价的不同写法
+    // implementation("org.jetbrains.kotlin:kotlin-reflect")
+
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-mustache") // HTML 模板库
     // spring boot 用 undertow 换掉 tomcat
@@ -31,7 +35,6 @@ dependencies {
         exclude(module="spring-boot-starter-tomcat")
     }
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin") // 序列化库
-    implementation("org.jetbrains.kotlin:kotlin-reflect")
 
     // @ConfigurationProperties 注解处理器
     kapt("org.springframework.boot:spring-boot-configuration-processor")
